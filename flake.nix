@@ -41,8 +41,6 @@
         config = imageConfig;
       };
 
-      forgejo-runner = pkg;
-
       default = self.packages.${system}.forgejo-runner-image;
     };
 
