@@ -15,15 +15,10 @@
     srcHash = "sha256-2PQPs7aIHd2h6bBiyQtFh+5afaI2uAq5mhx//xtifWE=";
     pkg = pkgs.forgejo-runner.overrideAttrs (old: {
       inherit version;
-      src = pkgs.fetchurl {
+      src = (pkgs.fetchurl {
         url = "https://code.forgejo.org/forgejo/runner/archive/v${version}.tar.gz";
         hash = srcHash;
-      };
-      ldflags = [
-        "-s"
-        "-w"
-        "-X code.forgejo.org/forgejo/runner/v${builtins.elemAt (builtins.splitVersion version) 0}/internal/pkg/ver.version=v${version}"
-      ];
+      }) // { rev = "v${version}"; };
     });
     imageConfig = {
       ExposedPorts = {
