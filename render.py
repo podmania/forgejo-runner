@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -44,6 +45,23 @@ def nix_eval(attr):
     return None
 
 
+def safe_copy2(src, dst):
+    """
+    Copy src -> dst, but skip if they resolve to the same file.
+    This avoids shutil.SameFileError when output_dir == template_dir.
+    """
+    src_p = Path(src).resolve()
+    dst_p = Path(dst).resolve()
+
+    if src_p == dst_p:
+        print(f"Skipped copying (same file): {dst_p}")
+        return False
+
+    dst_p.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(src_p, dst_p)
+    return True
+
+
 def main():
     name = os.environ.get("INPUT_NAME", "").strip()
     if not name:
@@ -61,7 +79,9 @@ def main():
         sys.exit(1)
 
     if not fetch_url:
-        print("::error::fetch-url is required (e.g. https://github.com/Radarr/Radarr/archive/refs/tags/v${VERSION}.tar.gz)")
+        print(
+            "::error::fetch-url is required (e.g. https://github.com/Radarr/Radarr/archive/refs/tags/v${VERSION}.tar.gz)"
+        )
         sys.exit(1)
 
     description = os.environ.get("INPUT_DESCRIPTION", "").strip()
@@ -132,9 +152,8 @@ def main():
         src = os.path.join(template_dir, static_file)
         dst = os.path.join(output_dir, static_file)
         if os.path.exists(src):
-            os.makedirs(os.path.dirname(dst), exist_ok=True)
-            shutil.copy2(src, dst)
-            print(f"Copied {static_file}")
+            if safe_copy2(src, dst):
+                print(f"Copied {static_file}")
 
     config = {
         "name": name,
