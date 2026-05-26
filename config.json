@@ -1,0 +1,15 @@
+{
+  "name": "forgejo-runner",
+  "upstream": "forgejo/runner",
+  "apiUrl": "https://code.forgejo.org/api/v1",
+  "tagPrefix": "v",
+  "fetcher": "fetchurl",
+  "fetchUrl": "https://code.forgejo.org/forgejo/runner/archive/v${VERSION}.tar.gz",
+  "versionOutput": "forgejo-runnerVersion",
+  "images": [
+    {
+      "name": "forgejo-runner",
+      "package": "forgejo-runner-image"
+    }
+  ]
+}
