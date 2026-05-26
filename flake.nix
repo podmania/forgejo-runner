@@ -13,22 +13,15 @@
     n2c = nix2container.outputs.packages.${system}.nix2container;
     version = "12.10.2";
     srcHash = "sha256-2PQPs7aIHd2h6bBiyQtFh+5afaI2uAq5mhx//xtifWE=";
-    pkg = pkgs.forgejo-runner.overrideAttrs (old: {
-      inherit version;
-      src = (pkgs.fetchurl {
-        url = "https://code.forgejo.org/forgejo/runner/archive/v${version}.tar.gz";
-        hash = srcHash;
-      }) // { rev = "v${version}"; };
-    });
     imageConfig = {
-      ExposedPorts = {
-        
-      };
       Volumes = {
-        
+        "/data" = {};
       };
-      
-      Cmd = [ "${pkg}/bin/forgejo-runner" ];
+      Env = [
+        "HOME=/data"
+      ];
+      WorkingDir = "/data";
+      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" "--config" "/data/config.yaml" ];
     };
   in {
     packages.${system} = {
