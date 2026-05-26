@@ -24,7 +24,7 @@ on:
       fetcher:
         description: 'Nix fetcher (fetchzip or fetchurl)'
         required: false
-        default: 'fetchzip'
+        default: 'fetchurl'
         type: choice
         options:
           - fetchzip
