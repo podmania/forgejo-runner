@@ -14,23 +14,15 @@
     version = "12.10.2";
     srcHash = "sha256-2PQPs7aIHd2h6bBiyQtFh+5afaI2uAq5mhx//xtifWE=";
 
-    containerPackages = [
-      pkgs.nix
-      pkgs.podman
-    ];
-
     imageConfig = {
       Volumes = {
         "/data" = {};
       };
       Env = [
         "HOME=/data"
-        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-        "NIX_CONF_DIR=/data/nix"
-        "NIX_STATE_DIR=/data/var/nix"
       ];
       WorkingDir = "/data";
-      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" "--config" "/data/config.yaml" ];
+      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" ];
     };
   in {
     packages.${system} = {
