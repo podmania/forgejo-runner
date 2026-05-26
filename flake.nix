@@ -19,6 +19,11 @@
         url = "https://code.forgejo.org/forgejo/runner/archive/v${version}.tar.gz";
         hash = srcHash;
       };
+      ldflags = [
+        "-s"
+        "-w"
+        "-X code.forgejo.org/forgejo/runner/v${builtins.elemAt (builtins.splitVersion version) 0}/internal/pkg/ver.version=v${version}"
+      ];
     });
     imageConfig = {
       ExposedPorts = {
