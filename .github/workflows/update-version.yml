@@ -32,3 +32,4 @@ jobs:
       api-url: ${{ needs.config.outputs.api-url }}
       fetcher: ${{ needs.config.outputs.fetcher }}
       fetch-url: ${{ needs.config.outputs.fetch-url }}
+      api-token: ''
