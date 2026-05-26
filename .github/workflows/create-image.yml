@@ -61,7 +61,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/nix-installer-action@00199f951aeb9404028a6e4b95ad42546f73296a
 
       - name: Validate package exists in nixpkgs
         run: |
