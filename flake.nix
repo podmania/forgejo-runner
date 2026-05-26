@@ -16,7 +16,7 @@
     pkg = pkgs.forgejo-runner.overrideAttrs (old: {
       inherit version;
       src = pkgs.fetchurl {
-        url = "https://code.forgejo.org/forgejo/runner/archive/v${VERSION}.tar.gz";
+        url = "https://code.forgejo.org/forgejo/runner/archive/v${version}.tar.gz";
         hash = srcHash;
       };
     });
