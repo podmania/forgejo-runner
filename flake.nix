@@ -11,8 +11,8 @@
     system = builtins.currentSystem;
     pkgs = nixpkgs.legacyPackages.${system};
     n2c = nix2container.outputs.packages.${system}.nix2container;
-    version = "0.0.0";
-    srcHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    version = "12.10.2";
+    srcHash = "sha256-2PQPs7aIHd2h6bBiyQtFh+5afaI2uAq5mhx//xtifWE=";
     pkg = pkgs.forgejo-runner.overrideAttrs (old: {
       inherit version;
       src = pkgs.fetchurl {
