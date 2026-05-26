@@ -36,7 +36,7 @@
     packages.${system} = {
       forgejo-runner-image = n2c.buildImage {
         name = "forgejo-runner";
-        tag = "latest-debug";
+        tag = "latest";
         fromImage = base.packages.${system}.base-debug-image;
         maxLayers = 5;
         config = imageConfig;
