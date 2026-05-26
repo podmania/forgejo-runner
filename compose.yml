@@ -3,9 +3,7 @@ services:
     image: ghcr.io/podmania/forgejo-runner:latest
     userns_mode: "keep-id"
     container_name: forgejo-runner
-    ports:
-      
     volumes:
-      
+      - ./data:/data
       - /etc/localtime:/etc/localtime:ro
     restart: always
