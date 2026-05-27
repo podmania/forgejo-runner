@@ -24,8 +24,8 @@
       ];
       WorkingDir = "/data";
       Cmd = [
-        "${pkgs.execline}/bin/execlineb" "-c"
-        "foreground { ${pkgs.forgejo-runner}/bin/forgejo-runner generate-config > /etc/forgejo/app.ini } ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /etc/forgejo/app.ini"
+        "${pkgs.bash}/bin/bash" "-c"
+        "${pkgs.forgejo-runner}/bin/forgejo-runner generate-config > /etc/forgejo/app.ini && exec ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /etc/forgejo/app.ini"
       ];
     };
   in {
