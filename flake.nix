@@ -23,7 +23,10 @@
         "HOME=/data"
       ];
       WorkingDir = "/data";
-      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" "--config" "/etc/forgejo/app.ini" ];
+      Cmd = [
+        "${pkgs.execline}/bin/execlineb" "-c"
+        "foreground { ${pkgs.forgejo-runner}/bin/forgejo-runner generate-config > /etc/forgejo/app.ini } ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /etc/forgejo/app.ini"
+      ];
     };
   in {
     packages.${system} = {
