@@ -17,12 +17,13 @@
     imageConfig = {
       Volumes = {
         "/data" = {};
+        "/etc/forgejo" = {};
       };
       Env = [
         "HOME=/data"
       ];
       WorkingDir = "/data";
-      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" ];
+      Cmd = [ "${pkgs.forgejo-runner}/bin/forgejo-runner" "daemon" "--config" "/etc/forgejo/app.ini" "--work-path" "/data" ];
     };
   in {
     packages.${system} = {
