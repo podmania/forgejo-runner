@@ -4,6 +4,6 @@ services:
     userns_mode: "keep-id"
     container_name: forgejo-runner
     volumes:
-      - ./data:/data
+      - ./data:/etc/forgejo
       - /etc/localtime:/etc/localtime:ro
     restart: always
