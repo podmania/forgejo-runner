@@ -11,8 +11,7 @@
     system = builtins.currentSystem;
     pkgs = nixpkgs.legacyPackages.${system};
     n2c = nix2container.outputs.packages.${system}.nix2container;
-    version = "12.10.2";
-    srcHash = "sha256-2PQPs7aIHd2h6bBiyQtFh+5afaI2uAq5mhx//xtifWE=";
+    pkg = pkgs.forgejo-runner;
 
     imageConfig = {
       Volumes = {
@@ -41,6 +40,6 @@
       default = self.packages.${system}.forgejo-runner-image;
     };
 
-    forgejo-runnerVersion = version;
+    version = pkg.version;
   };
 }
