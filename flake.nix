@@ -38,8 +38,8 @@
       };
     in {
       forgejo-runner-image = image;
-      copyToDockerDaemon = n2c.copyToDockerDaemon image;
-      copyToRegistry = n2c.copyToRegistry image;
+      copyToDockerDaemon = image.copyToDockerDaemon;
+      copyToRegistry = image.copyToRegistry;
       default = self.packages.${system}.forgejo-runner-image;
     };
 
