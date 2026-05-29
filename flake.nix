@@ -35,18 +35,23 @@
       ];
     };
   in {
-    packages.${system} = let
-      image = n2c.buildImage {
+    packages.${system} = {
+      forgejo-runner-image = n2c.buildImage {
         name = "forgejo-runner";
         tag = "latest";
         fromImage = base.packages.${system}.base-debug-image;
         maxLayers = 5;
         config = imageConfig;
       };
-    in {
-      forgejo-runner-image = image;
-      copyToDockerDaemon = image.copyToDockerDaemon;
-      copyToRegistry = image.copyToRegistry;
+
+      forgejo-runner-debug-image = n2c.buildImage {
+        name = "forgejo-runner";
+        tag = "latest-debug";
+        fromImage = base.packages.${system}.base-debug-image;
+        maxLayers = 5;
+        config = imageConfig;
+      };
+
       default = self.packages.${system}.forgejo-runner-image;
     };
 
