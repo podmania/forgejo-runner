@@ -1,0 +1,10 @@
+{
+  "name": "forgejo-runner",
+  "upstream": "forgejo/runner",
+  "images": [
+    {
+      "name": "forgejo-runner",
+      "package": "forgejo-runner-image"
+    }
+  ]
+}
