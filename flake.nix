@@ -24,7 +24,14 @@
       WorkingDir = "/data";
       Cmd = [
         "${pkgs.bash}/bin/bash" "-c"
-        "if [ -f /etc/forgejo/app.ini ]; then exec ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /etc/forgejo/app.ini; else ${pkgs.forgejo-runner}/bin/forgejo-runner generate-config > /tmp/app.ini && exec ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /tmp/app.ini; fi"
+        ''
+          if [ -f /etc/forgejo/app.ini ]; then
+            exec ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /etc/forgejo/app.ini
+          else
+            ${pkgs.forgejo-runner}/bin/forgejo-runner generate-config > /tmp/app.ini
+            ${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config /tmp/app.ini || exec ${pkgs.coreutils}/bin/sleep infinity
+          fi
+        ''
       ];
     };
   in {
